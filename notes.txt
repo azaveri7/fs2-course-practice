@@ -1,0 +1,22 @@
+1. CSVProcessingImperative1 and CSVProcessingImperative2 read the files in memory
+   and then process them. If files are large, we could have a problem.
+
+2. CSVProcessingIterator reads the file using streams using Scala.io.Source
+
+3. CSVProcessingStreams and CSVProcessingParallelStreams reads the files using streams
+   using fs2 library.
+
+   CSVProcessingStreams reads the stream of bytes line by line whereas CSVProcessingParallelStreams
+   reads them parallely using method parEvalMapUnbounded.
+
+4. CSVProcessingStreamsSlowly uses a method metered to process each line after a 1 second duration of time.
+   Here if you are printing 8 records based on limit in take method, it will show output after 8 seconds.
+
+   To see intermediate processing, use method evalTap.
+
+5. The Stream solution is highly compatible with effect monads such as IO, which allows it to provide features such as
+   parallel evaluation, metered execution and more.
+
+6. When effects are made referentially transparent, as is the case with IO, they become much easier to combine
+   and compose. Fs2 leverages this to provide multiple effect-related features.
+
